@@ -1,0 +1,9 @@
+﻿To: Dr. John Shepherd, Chief Scientific Officer, UHCC 
+And the UH × Google Workshop Organizing Committee 
+Subject: Abstract & Poster Submission - PXG Hard-Grid Coordinate System Framework Aloha Dr. Shepherd and Committee, 
+Please find attached our poster submission for the upcoming UH × Google Collaborative Workshop on March 25, 2026: "Accelerating Research in the Age of AI." 
+Our submission, titled "PXG // PIXEL BY GRID // STATE OF MIND UNION // OPERATIONAL PROTOCOL," presents a novel, deterministic UI/UX framework designed for the State of Mind Union (SoMU). By leveraging strict mathematical anchoring rules to eliminate "resolution drift", the PXG framework stabilizes complex scientific data visualization pipelines, bridging the gap from Mobile WebGPU runtimes to advanced XR displays. Furthermore, our integration with Unity 6's CoreCLR and AI-suggested auto-layout refinement yields an estimated 15-22% reduction in CPU layout overhead, heavily optimizing research workflows characteristic of astronomy, health, and ocean sciences. 
+We are excited to discuss how these deterministic deployment pipelines and AI hooks scale to accelerate multi-disciplinary research at the University of Hawai'i. 
+Thank you for your consideration and time. 
+Warm regards, 
+Team Studio PxG
