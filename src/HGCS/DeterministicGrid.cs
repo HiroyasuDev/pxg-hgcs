@@ -208,5 +208,32 @@ namespace PXG.HGCS
         {
             Origin = newOrigin;
         }
+
+#if ENABLE_VR || ENABLE_AR || UNITY_XR_MANAGEMENT
+        public void OnEnable()
+        {
+            var subsystems = new System.Collections.Generic.List<UnityEngine.XR.XRInputSubsystem>();
+            UnityEngine.XR.SubsystemManager.GetInstances(subsystems);
+            foreach (var sub in subsystems)
+                sub.trackingOriginUpdated += OnTrackingOriginUpdated;
+        }
+
+        public void OnDisable()
+        {
+            var subsystems = new System.Collections.Generic.List<UnityEngine.XR.XRInputSubsystem>();
+            UnityEngine.XR.SubsystemManager.GetInstances(subsystems);
+            foreach (var sub in subsystems)
+                sub.trackingOriginUpdated -= OnTrackingOriginUpdated;
+        }
+
+        private void OnTrackingOriginUpdated(UnityEngine.XR.XRInputSubsystem subsystem)
+        {
+            if (Camera.main != null)
+                Camera.main.transform.position = new Vector3(0f, 1.5f, 1.0f);
+            
+            // Invoke grid matrix recalculation to kill relative hardware drift
+            SetOrigin(Origin);
+        }
+#endif
     }
 }

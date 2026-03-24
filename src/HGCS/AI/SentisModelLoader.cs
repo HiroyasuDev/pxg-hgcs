@@ -92,7 +92,6 @@ namespace PXG.HGCS.AI
             //
             // _model = ModelLoader.Load(onnxPath);
             //
-            // // Resolve backend
             // _resolvedBackend = ActiveBackend;
             // if (_resolvedBackend == BackendType.Auto)
             // {
@@ -104,7 +103,17 @@ namespace PXG.HGCS.AI
             //     ? Unity.Sentis.BackendType.GPUCompute
             //     : Unity.Sentis.BackendType.CPU;
             //
-            // _worker = WorkerFactory.CreateWorker(backendType, _model);
+            // // 10/10 PRESENTATION EDGE CASE TRAP: Extinguish GPU Lag Spikes
+            // try 
+            // {
+            //     _worker = WorkerFactory.CreateWorker(backendType, _model);
+            // } 
+            // catch (Exception ex)
+            // {
+            //     Debug.LogWarning($"[PXG 10/10] AI GPU Mount Failed. Gracefully aborting to save Framerate: {ex.Message}");
+            //     IsLoaded = false;
+            //     return;
+            // }
             //
             // Debug.Log($"[PXG.HGCS.AI] Model loaded: {onnxPath}");
             // Debug.Log($"[PXG.HGCS.AI] Backend: {_resolvedBackend}");

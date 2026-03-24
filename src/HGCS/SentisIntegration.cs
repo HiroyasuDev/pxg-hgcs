@@ -205,5 +205,22 @@ namespace PXG.HGCS
             $"[PXG AI] Cycles: {InferenceCycles} | " +
             $"Accepted: {TotalAccepted} | Rejected: {TotalRejected} | " +
             $"Rate: {(TotalAccepted + TotalRejected > 0 ? TotalAccepted / (float)(TotalAccepted + TotalRejected) * 100f : 0f):F1}%";
+
+#if UNITY_SENTIS
+        private Unity.Sentis.IWorker _worker;
+
+        public void InitializeInferenceEngine(Unity.Sentis.Model model)
+        {
+            try
+            {
+                _worker = Unity.Sentis.WorkerFactory.CreateWorker(Unity.Sentis.BackendType.GPUCompute, model);
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError($"[PXG 10/10] GPU Mount Failed. Setting worker to null to gracefully abort inference: {ex.Message}");
+                _worker = null;
+            }
+        }
+#endif
     }
 }

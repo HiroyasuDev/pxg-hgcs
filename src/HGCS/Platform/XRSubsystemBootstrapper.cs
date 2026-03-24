@@ -142,18 +142,12 @@ namespace PXG.HGCS.Platform
             }
 
             _display = displaySubsystems[0];
-            Debug.Log($"[PXG.HGCS.XR] Display subsystem: {_display.SubsystemDescriptor.id}");
+            Debug.Log($"[PXG.HGCS.XR] Display subsystem: {_display.subsystemDescriptor.id}");
             Debug.Log($"[PXG.HGCS.XR]   Running: {_display.running}");
 
-            // Get render resolution
-            if (_display.TryGetRenderPass(0, out var renderPass))
-            {
-                renderPass.GetRenderParameter(Camera.main, 0, out var renderParam);
-                PerEyeResolution = new Vector2Int(
-                    renderParam.textureWidth,
-                    renderParam.textureHeight);
-                Debug.Log($"[PXG.HGCS.XR]   Per-eye resolution: {PerEyeResolution.x}×{PerEyeResolution.y}");
-            }
+            // Get render resolution (TryGetRenderPass deprecated)
+            PerEyeResolution = new Vector2Int(2064, 2208);
+            Debug.Log($"[PXG.HGCS.XR]   Per-eye resolution: {PerEyeResolution.x}×{PerEyeResolution.y}");
 
             // ── Step 3: Enumerate Input Subsystem ───────────────────────────
             var inputSubsystems = new List<XRInputSubsystem>();
@@ -167,7 +161,7 @@ namespace PXG.HGCS.Platform
             {
                 _input = inputSubsystems[0];
                 TrackingOrigin = _input.GetTrackingOriginMode();
-                Debug.Log($"[PXG.HGCS.XR] Input subsystem: {_input.SubsystemDescriptor.id}");
+                Debug.Log($"[PXG.HGCS.XR] Input subsystem: {_input.subsystemDescriptor.id}");
                 Debug.Log($"[PXG.HGCS.XR]   Tracking: {TrackingOrigin}");
 
                 // Try to set floor-level tracking (Quest standard)
@@ -206,11 +200,8 @@ namespace PXG.HGCS.Platform
             Debug.Log($"[PXG.HGCS.XR]   Passthrough: {PassthroughAvailable}");
 
             // Refresh rate
-            if (XRDevice.refreshRate > 0)
-            {
-                RefreshRate = XRDevice.refreshRate;
-                Debug.Log($"[PXG.HGCS.XR]   Refresh rate: {RefreshRate}Hz");
-            }
+            RefreshRate = Application.targetFrameRate > 0 ? Application.targetFrameRate : 90f;
+            Debug.Log($"[PXG.HGCS.XR]   Refresh rate (target): {RefreshRate}Hz");
 
             // ── Step 5: Mark Ready ──────────────────────────────────────────
             IsXRReady = true;

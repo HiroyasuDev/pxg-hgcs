@@ -100,7 +100,7 @@ namespace PXG.HGCS
                 RunNaiveLayout(elements, constraints);
             }
             sw.Stop();
-            double naiveUs = sw.Elapsed.TotalMicroseconds / Iterations;
+            double naiveUs = sw.Elapsed.Ticks / 10.0 / Iterations;
 
             // Measure HGCS layout
             sw.Restart();
@@ -110,7 +110,7 @@ namespace PXG.HGCS
                 totalDriftCorrections += RunHgcsLayout(elements, constraints);
             }
             sw.Stop();
-            double hgcsUs = sw.Elapsed.TotalMicroseconds / Iterations;
+            double hgcsUs = sw.Elapsed.Ticks / 10.0 / Iterations;
 
             return new BenchmarkResult
             {
